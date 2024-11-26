@@ -1,30 +1,20 @@
 
 fun abrir(funcion:String): ArrayList<Char> {
     var apertura:ArrayList<Char> = arrayListOf()
-    var cnt:Int = 0
     for (simbolos in funcion){
-        when(simbolos){
-            '('-> apertura.add(simbolos)
-            '[' -> apertura.add(simbolos)
-            '{' -> apertura.add(simbolos)
-
+        if(simbolos == '(' || simbolos == '{' || simbolos == '['){
+            apertura.add(simbolos)
         }
-        cnt++
     }
     return apertura
 }
 
 fun cerrar(funcion:String): ArrayList<Char>{
     var cerrado:ArrayList<Char> = arrayListOf()
-    var cnt:Int = 0
     for (simbolos in funcion){
-        when(simbolos){
-            ')'-> cerrado.add(simbolos)
-            ']' -> cerrado.add(simbolos)
-            '}' -> cerrado.add(simbolos)
-
+        if(simbolos == ')' || simbolos == '}' || simbolos == ']'){
+            cerrado.add(simbolos)
         }
-        cnt++
     }
     return cerrado
 }
@@ -32,24 +22,34 @@ fun cerrar(funcion:String): ArrayList<Char>{
 fun main(){
     print("Introduzca su funcion: ")
     var funcion = readln()
-    val abierto:ArrayList<Char> = abrir(funcion)
-    val cerrar:ArrayList<Char> = cerrar(funcion)
+    var abierto:ArrayList<Char> = abrir(funcion)
+    var cerrar:ArrayList<Char> = cerrar(funcion)
 
     var resultado:Boolean = false
+    if(abierto.size!=cerrar.size){
+        resultado = false
+    }else {
 
-    var posicion:Int = 0
-
-    for (simboloA in abierto){
-        for (simboloC in cerrar.reversed()){
-            if(simboloA == simboloC){
-                resultado = true
-            }else{
-                resultado = false
+        for (simboloA in abierto) {
+            for (simboloC in cerrar.reversed()) {
+                if (simboloA == '(' && simboloC == ')') {
+                    resultado = true
+                    break
+                } else if (simboloA == '[' && simboloC == ']') {
+                    resultado = true
+                    break
+                } else if (simboloA == '{' && simboloC == '}') {
+                    resultado = true
+                    break
+                } else {
+                    resultado = false
+                }
             }
-            if(!resultado){
+            if (!resultado) {
                 break
             }
         }
     }
-    println(resultado)
-}
+        println(resultado)
+    }
+
