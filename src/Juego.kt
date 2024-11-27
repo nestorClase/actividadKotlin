@@ -7,9 +7,9 @@ class Juego(val tablero: Array<Array<String?>>) {
 
         for (fila in tablero) {
             for (simbolo in fila) {
-                if (simbolo.equals("X")) {
+                if (simbolo.equals("X") || simbolo.equals("x")) {
                     cntX++
-                } else if (simbolo.equals("O") || simbolo.equals("0")) {
+                } else if (simbolo.equals("O") || simbolo.equals("0") simbolo.equals("o")) {
                     cntO++
                 }
             }
