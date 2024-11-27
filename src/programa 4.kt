@@ -1,27 +1,38 @@
 
 fun main(){
-    print("Introduce las acciones del atleta: ")
-    var acciones: String = readln()
-    print("Introduce la pista: ")
-    var pista:String = readln()
+    val accionesCorredor: Array<String> = arrayOf("correr", "saltar", "correr", "saltar", "correr")
+    var pista = "_|_|_"
 
-    acciones.toList()
-    pista.toList()
 
-    var puede:Boolean = false
+    println(corriendo(accionesCorredor, pista))
+}
 
-    for(a in acciones){
-        if(a.equals("correr") || a.equals("saltar")){
-            acciones.re
+fun corriendo(carrera: Array<String>, pista: String): String {
+    var obstaculos: ArrayList<Char> = ArrayList()
+    var paso = true
+    var pistaFinal = pista
+
+    if (carrera.size > pista.length) {
+        val diferencia = carrera.size - pistaFinal.length
+        pistaFinal = pista + "?".repeat(diferencia)
+    }
+
+    for (i in carrera.indices) {
+        if (carrera[i] == "correr" && pistaFinal[i] == '_' || carrera[i] == "saltar" && pistaFinal[i] == '|') {
+            obstaculos.add(pistaFinal[i])
+        }else if (carrera[i] == "correr" && pistaFinal[i] == '|' || carrera[i] == "saltar" && pistaFinal[i] == '_') {
+            obstaculos.add('/')
+            paso = false
+        }
+        if(pistaFinal[i] == '?'){
+            obstaculos.add('?')
+            paso = false
         }
     }
 
-    for(i in acciones.indices){
-        if(acciones[i] == pista[i]){
-            puede = true
-        }else{
-            puede = false
-        }
+    while(pista.length > carrera.size){
+        obstaculos.add(pista[pista.length-1])
     }
-        println(puede)
-    }
+
+    return "$obstaculos  $paso"
+}
